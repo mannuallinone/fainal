@@ -26,9 +26,9 @@ async function buildInvoicePDF({ bookingData, payment }) {
   y -= 8;
   line("Package:", bookingData.package || "");
   line("Advance %:", bookingData.advance + "%");
-  line("Total (gross):", "₹" + (bookingData.packageAmount || 0));
-  line("Paid Now:", "₹" + (payment.payNowAmount || 0));
-  line("Due:", "₹" + (Math.max(0, (bookingData.packageAmount || 0) - (payment.payNowAmount || 0))));
+  line("Total (gross):", "INR" + (bookingData.packageAmount || 0));
+  line("Paid Now:", "INR" + (payment.payNowAmount || 0));
+  line("Due:", "INR" + (Math.max(0, (bookingData.packageAmount || 0) - (payment.payNowAmount || 0))));
 
   page.drawText("Thank you for your booking!", { x: 24, y: y - 20, size: 12, font });
   const pdfBytes = await pdfDoc.save();
