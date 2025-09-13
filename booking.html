@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Booking - Mahadev Photography</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <div class="brand"><a href="index.html">Mahadev Photography</a></div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="booking.html" class="active">Booking</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container booking-page">
+    <h2>Book Your Event</h2>
+
+    <form id="bookingForm">
+      <div class="grid-2">
+        <input id="name" name="name" type="text" placeholder="Full name" required>
+        <input id="phone" name="phone" type="tel" placeholder="Phone" required>
+      </div>
+      <div class="grid-2">
+        <input id="email" name="email" type="email" placeholder="Email" required>
+        <input id="address" name="address" type="text" placeholder="Event address" required>
+      </div>
+
+      <label>Package</label>
+      <select id="packageSelect" name="package" required>
+        <option value="">Select package</option>
+        <option value="15000">Basic - ₹15,000</option>
+        <option value="20000">Advance - ₹20,000</option>
+        <option value="30000">Premium - ₹30,000</option>
+      </select>
+
+      <label>Advance %</label>
+      <select id="advanceSelect" name="advance" required>
+        <option value="">Select advance %</option>
+        <option value="20">20%</option>
+        <option value="30">30%</option>
+        <option value="40">40%</option>
+        <option value="50">50%</option>
+      </select>
+
+      <div id="events">
+        <label>Events (date + name)</label>
+        <div class="grid-2 event-row">
+          <input type="date" name="event_date[]" class="eventDate" required>
+          <input type="text" name="event_name[]" class="eventName" placeholder="Event name (e.g. Haldi)" required>
+        </div>
+      </div>
+      <button type="button" id="addEventBtn" class="btn ghost">+ Add another date</button>
+
+      <p id="totalDisplay" class="muted"></p>
+
+      <button type="submit" class="btn primary">Submit & Continue to Payment</button>
+      <p id="msg" class="muted"></p>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>© <span id="yr"></span> Mahadev Photography</div>
+    </div>
+  </footer>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+  <script src="js/booking.js"></script>
+  <script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio - Mahadev Photography</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <div class="brand"><a href="index.html">Mahadev Photography</a></div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="booking.html">Booking</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>Portfolio</h2>
+    <div class="gallery">
+      <img src="https://picsum.photos/600/400?random=11" alt="sample1">
+      <img src="https://picsum.photos/600/400?random=12" alt="sample2">
+      <img src="https://picsum.photos/600/400?random=13" alt="sample3">
+      <img src="https://picsum.photos/600/400?random=14" alt="sample4">
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>© <span id="yr"></span> Mahadev Photography</div>
+    </div>
+  </footer>
+  <script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
+</body>
+</html>

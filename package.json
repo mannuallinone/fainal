@@ -1,0 +1,11 @@
+{
+  "name": "mahadev-photography-site",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "razorpay": "^2.0.0",
+    "pdf-lib": "^1.17.1",
+    "nodemailer": "^6.9.0",
+    "node-fetch": "^2.6.7"
+  }
+}

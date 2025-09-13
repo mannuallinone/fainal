@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact - Mahadev Photography</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <div class="brand"><a href="index.html">Mahadev Photography</a></div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="booking.html">Booking</a>
+        <a href="contact.html" class="active">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <input name="name" type="text" placeholder="Your name" required>
+      <input name="email" type="email" placeholder="Your email" required>
+      <textarea name="message" placeholder="Your message" required></textarea>
+      <button type="submit" class="btn primary">Send Message</button>
+    </form>
+
+    <section class="contact-info">
+      <p><strong>Email:</strong> mannuallinone@gmail.com</p>
+      <p><strong>Phone:</strong> +91 9631046021</p>
+      <p><strong>Address:</strong> 07 Belamegh, Ujiyarpur, Samastipur, Bihar</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>© <span id="yr"></span> Mahadev Photography</div>
+    </div>
+  </footer>
+
+  <script>
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert('Message sent (demo) — implement server/email as needed.');
+  });
+  document.getElementById('yr').textContent=new Date().getFullYear()
+  </script>
+</body>
+</html>
