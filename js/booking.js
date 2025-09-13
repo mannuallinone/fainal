@@ -1,6 +1,6 @@
 // booking.js - front-end logic (Vercel backend used for create-order & verify)
 // NOTE: replace YOUR_RAZORPAY_KEY_ID below with your Razorpay Key ID (live/test).
-const RAZORPAY_KEY_ID = "YOUR_RAZORPAY_KEY_ID"; // <-- replace this
+const RAZORPAY_KEY_ID = "rzp_live_RE2GBEy0A6C3Tz"; // <-- replace this
 
 const addEventBtn = document.getElementById('addEventBtn');
 const eventsContainer = document.getElementById('events');
@@ -78,7 +78,7 @@ bookingForm.addEventListener('submit', async function(e){
     if(!order.id){ msg.textContent='Order creation failed'; return; }
 
     const options = {
-      key: rzp_live_RE2GBEy0A6C3Tz,
+      key: RAZORPAY_KEY_ID,
       amount: order.amount,
       currency: order.currency,
       name: 'Mahadev Photography',
