@@ -78,7 +78,7 @@ bookingForm.addEventListener('submit', async function(e){
     if(!order.id){ msg.textContent='Order creation failed'; return; }
 
     const options = {
-      key: RAZORPAY_KEY_ID,
+      key: rzp_live_RE2GBEy0A6C3Tz,
       amount: order.amount,
       currency: order.currency,
       name: 'Mahadev Photography',
