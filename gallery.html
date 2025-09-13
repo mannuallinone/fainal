@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gallery — Mahadev Photography</title>
+<style>
+  :root{
+    --gap:12px;
+    --accent:#3399cc;
+    --bg:#fafafa;
+    --card:#fff;
+    --muted:#666;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:#111}
+  .container{max-width:1100px;margin:0 auto;padding:20px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+  a.brand{font-weight:700;color:var(--accent);text-decoration:none}
+  h1{margin:8px 0 18px;font-size:28px}
+  p.lead{color:var(--muted);margin:0 0 18px}
+
+  /* Gallery grid */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--gap)}
+  .tile{background:var(--card);border-radius:8px;overflow:hidden;position:relative;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.05)}
+  .tile img{display:block;width:100%;height:220px;object-fit:cover}
+  .tile .meta{padding:10px;font-size:13px;color:var(--muted)}
+  .video-tile{display:flex;align-items:center;justify-content:center;height:220px;background:#000;color:#fff;position:relative}
+  .video-thumb{position:absolute;inset:0;background-position:center;background-size:cover;filter:brightness(.45)}
+  .play-btn{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.15)}
+  .play-btn svg{width:18px;height:18px;fill:#fff}
+
+  /* Lightbox / modal */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
+  .overlay.open{display:flex}
+  .lightbox{max-width:1100px;width:100%;max-height:90vh;background:#000;border-radius:8px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+  .lightbox img, .lightbox iframe{width:100%;height:calc(90vh - 80px);object-fit:contain;background:#000}
+  .lightbox .info{padding:12px;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,0.15),transparent);display:flex;justify-content:space-between;align-items:center}
+  .close-btn{background:transparent;border:0;color:#fff;font-size:20px;cursor:pointer}
+  .caption{font-size:14px;color:#fff;opacity:.95}
+
+  /* responsive tweaks */
+  @media (max-width:600px){
+    .tile img, .video-tile{height:160px}
+    .lightbox img, .lightbox iframe{height:calc(80vh - 80px)}
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a class="brand" href="index.html">Mahadev Photography</a>
+      <nav aria-label="Main">
+        <a href="portfolio.html">Portfolio</a> &nbsp; • &nbsp;
+        <a href="booking.html">Booking</a> &nbsp; • &nbsp;
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Wedding Gallery & Highlight</h1>
+      <p class="lead">A curated selection of wedding moments — click any image to view larger. Watch the highlight video for a short cinematic recap.</p>
+
+      <section class="gallery" id="gallery">
+        <!-- Replace these sample images with your images (recommended size 1200×800 or similar) -->
+        <div class="tile" data-src="https://picsum.photos/1200/800?random=21" data-caption="Bride getting ready">
+          <img alt="Bride getting ready" src="https://picsum.photos/600/400?random=21" loading="lazy">
+          <div class="meta">Bride getting ready</div>
+        </div>
+
+        <div class="tile" data-src="https://picsum.photos/1200/800?random=22" data-caption="Candid laughter">
+          <img alt="Candid laughter" src="https://picsum.photos/600/400?random=22" loading="lazy">
+          <div class="meta">Candid laughter</div>
+        </div>
+
+        <div class="tile video-tile" id="videoTile" role="button" aria-label="Watch highlight video" tabindex="0" data-yid="YOUR_YOUTUBE_VIDEO_ID">
+          <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/YOUR_YOUTUBE_VIDEO_ID/maxresdefault.jpg')"></div>
+          <div class="play-btn" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+            <strong>Watch Highlight</strong>
+          </div>
+        </div>
+
+        <div class="tile" data-src="https://picsum.photos/1200/800?random=23" data-caption="Couple portrait">
+          <img alt="Couple portrait" src="https://picsum.photos/600/400?random=23" loading="lazy">
+          <div class="meta">Couple portrait</div>
+        </div>
+
+        <div class="tile" data-src="https://picsum.photos/1200/800?random=24" data-caption="Ceremony moment">
+          <img alt="Ceremony moment" src="https://picsum.photos/600/400?random=24" loading="lazy">
+          <div class="meta">Ceremony moment</div>
+        </div>
+
+        <div class="tile" data-src="https://picsum.photos/1200/800?random=25" data-caption="First dance">
+          <img alt="First dance" src="https://picsum.photos/600/400?random=25" loading="lazy">
+          <div class="meta">First dance</div>
+        </div>
+
+        <!-- add more tiles as needed -->
+      </section>
+    </main>
+  </div>
+
+  <!-- overlay / lightbox -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+      <button class="close-btn" id="closeBtn" aria-label="Close (Esc)">✕</button>
+      <div id="mediaContainer"></div>
+      <div class="info">
+        <div class="caption" id="captionText"></div>
+        <div style="color:#fff;opacity:.8;font-size:13px">Mahadev Photography</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const overlay = document.getElementById('overlay');
+  const mediaContainer = document.getElementById('mediaContainer');
+  const captionText = document.getElementById('captionText');
+  const closeBtn = document.getElementById('closeBtn');
+  const gallery = document.getElementById('gallery');
+
+  // open image in lightbox
+  function openImage(src, caption){
+    captionText.textContent = caption || '';
+    mediaContainer.innerHTML = ''; // clear
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = caption || 'Image';
+    img.loading = 'eager';
+    mediaContainer.appendChild(img);
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // open youtube in lightbox (lazy load iframe)
+  function openVideo(yid){
+    captionText.textContent = 'Highlight video';
+    mediaContainer.innerHTML = '';
+    const iframe = document.createElement('iframe');
+    iframe.width = '100%';
+    iframe.height = '100%';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.setAttribute('allowfullscreen','');
+    // autoplay & modestbranding
+    iframe.src = `https://www.youtube.com/embed/${encodeURIComponent(yid)}?autoplay=1&rel=0&modestbranding=1`;
+    mediaContainer.appendChild(iframe);
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // handle tile clicks
+  gallery.addEventListener('click', function(e){
+    const tile = e.target.closest('.tile');
+    if(!tile) return;
+    if(tile.id === 'videoTile'){
+      const yid = tile.dataset.yid;
+      if(!yid || yid==='YOUR_YOUTUBE_VIDEO_ID'){ alert('Replace YOUR_YOUTUBE_VIDEO_ID with actual YouTube ID in the HTML'); return; }
+      openVideo(yid);
+      return;
+    }
+    const src = tile.dataset.src;
+    const caption = tile.dataset.caption || tile.querySelector('.meta')?.textContent || '';
+    if(src) openImage(src, caption);
+  });
+
+  // keyboard & close
+  function closeOverlay(){
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
+    mediaContainer.innerHTML = '';
+    captionText.textContent = '';
+    document.body.style.overflow = '';
+  }
+  closeBtn.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeOverlay();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
+  });
+
+  // make video tile keyboard accessible
+  const videoTile = document.getElementById('videoTile');
+  videoTile.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); videoTile.click(); }
+  });
+
+})();
+</script>
+</body>
+</html>
