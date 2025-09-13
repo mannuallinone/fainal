@@ -30,6 +30,17 @@ async function buildInvoicePDF({ bookingData, payment }) {
   line("Paid Now:", "INR" + (payment.payNowAmount || 0));
   line("Due:", "INR" + (Math.max(0, (bookingData.packageAmount || 0) - (payment.payNowAmount || 0))));
 
+  // --- Event Dates add kiya ---
+  if (Array.isArray(bookingData.events) && bookingData.events.length > 0) {
+    page.drawText("Event Dates:", { x: 24, y, size: 12, font: bold, color: gold });
+    y -= 16;
+    bookingData.events.forEach((e, i) => {
+      page.drawText(`${i + 1}. ${e.date} - ${e.name}`, { x: 32, y, size: 11, font });
+      y -= 14;
+    });
+    y -= 8;
+  }
+
   page.drawText("Thank you for your booking!", { x: 24, y: y - 20, size: 12, font });
   const pdfBytes = await pdfDoc.save();
   return pdfBytes;
